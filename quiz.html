@@ -1,6 +1,7 @@
 <!doctype html>
 
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>S&D quiz</title>
@@ -9,45 +10,50 @@
 </head>
 
 <body>
-    <div class="game">
-  <section class="top">
+  <div class="game">
+    <div class="title">
+      <h1> FUN FACT QUIZ</h1>
+    </div>
+    <section class="top">
       <div class="lives"> LIVES </div>
       <div class="question">
-      
-          <div class='bubble'>
-              <div class='header'> Question 1</div>
-              <div class="text"></div>
-              <div class="next"> Next question! </div>
-             
+        <div class='bubble'>
+          <div class='header'> Question 1</div>
+          <div class="text">
+
+
           </div>
-          <img class ='brain' src='brainLight.jpeg'>
-        
+          <lottie-player id='animator' src="https://assets6.lottiefiles.com/private_files/lf30_9czxyepk.json"
+            background="transparent" speed="1" loop autoplay></lottie-player>
+        </div>
       </div>
       <div class="jokers"> JOKERS </div>
 
-  </section>
+    </section>
+    <div class="next"> I am ready </div>
 
-  <section class="bottom">
+    <section class="bottom">
       <div class="answer">
-          <div class="choices">
-              <div class="line1">
-              <div class="choice1"></div>
-              <div class="choice2"></div>
-            </div>
-            <div class="line1">
-              <div class="choice3"></div>
-              <div class="choice4"></div>
-              </div>
+        <div class="choices">
+          <div class="line1">
+            <div class="choice1"></div>
+            <div class="choice2"></div>
           </div>
+          <div class="line1">
+            <div class="choice3"></div>
+            <div class="choice4"></div>
+          </div>
+        </div>
 
       </div>
-      
-</section>
 
-<section class="spectators"></section>
-</div>
+    </section>
 
+    <section class="spectators"></section>
+  </div>
 
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <script src="quiz.js"></script>
 </body>
+
 </html>
