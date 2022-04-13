@@ -74,33 +74,54 @@ const questions = {
     ],
     answer: "Owning just one guinea pig",
   },
+  question13: {
+    question: "For how much time can a wood frog hold its pee?",
+    choice: ["2 days", "3 hours", "5 months", "8 months"],
+    answer: "8 months",
+  },
+  question14: {
+    question: "How does space smells like?",
+    choice: ["No smell", "humidity", "seared steak", "sweat"],
+    answer: "seared steak",
+  },
+  question15: {
+    question: "How much questions do kids ask in a day in average?",
+    choice: ["300 questions", "150 questions", "50 questions", "225 questions"],
+    answer: "300 questions",
+  },
 };
 
-const arrAnimators = ["animatorHi", "animatorO", "animatorX", "animatorQ"];
-
 function animatorShow(letter) {
-  for (const animatorSelected of arrAnimators) {
-    if (animatorSelected === `animator${letter}`) {
-      console.log(`show ${animatorSelected}`);
-      document.getElementById(`animator${letter}`).style.animationName = "show";
-      document.getElementById(`animator${letter}`).style.animationDuration =
-        "0.5s";
-      document.getElementById(`animator${letter}`).style.animationFillMode =
-        "forwards";
-    } else {
-      console.log(`hide ${animatorSelected}`);
-      document.getElementById(`animator${letter}`).style.animationName = "hide";
-      document.getElementById(`animator${letter}`).style.animationDuration =
-        "0.5s";
-      document.getElementById(`animator${letter}`).style.animationFillMode =
-        "forwards";
-      console.log(document.getElementById(`animator${letter}`).style);
-    }
+  if (letter === "Hi") {
+    document.querySelector(
+      ".animator"
+    ).innerHTML = `<lottie-player id='animatorHi' src="https://assets10.lottiefiles.com/private_files/lf30_9czxyepk.json"
+    background="transparent" speed="1" loop autoplay>
+  </lottie-player>`;
+  } else if (letter === "X") {
+    document.querySelector(
+      ".animator"
+    ).innerHTML = ` <lottie-player id='animatorX' src="https://assets10.lottiefiles.com/private_files/lf30_qynkjvnj.json"
+  background="transparent" speed="1" loop autoplay>
+</lottie-player>`;
+  } else if (letter === "O") {
+    document.querySelector(
+      ".animator"
+    ).innerHTML = `<lottie-player id='animatorO' src="https://assets10.lottiefiles.com/private_files/lf30_0tuog8jo.json"
+background="transparent" speed="1" loop autoplay>
+</lottie-player>`;
+  } else if (letter === "Q") {
+    document.querySelector(
+      ".animator"
+    ).innerHTML = `<lottie-player id='animatorQ' src="https://assets10.lottiefiles.com/private_files/lf30_nianlkcb.json"
+background="transparent" speed="1" loop autoplay>
+</lottie-player>`;
   }
 }
 
 let lives = 3;
 let gameOn = false;
+let restart = false;
 
 animatorShow("Hi");
 
@@ -110,6 +131,69 @@ function randomQuestion(obj) {
 }
 
 let actualQuestion = "";
+let questionNumber = 1;
+let henryLife = 90;
+let henryPoints = 15;
+
+function lifeCheck() {
+  if (lives === 2) {
+    document.querySelector(".lives").innerHTML = `<p>LIVES</p>
+    <lottie-player id='hearth1' src="https://assets7.lottiefiles.com/packages/lf20_ftxgjunm.json"
+      background="transparent" speed="0.5" style="width: 50px; height: 50px;" loop autoplay></lottie-player>
+    <lottie-player id='hearth2' src="https://assets7.lottiefiles.com/packages/lf20_ftxgjunm.json"
+      background="transparent" speed="0.5" style="width: 50px; height: 50px;" loop autoplay></lottie-player>
+      <lottie-player id='hearth2' src="https://assets7.lottiefiles.com/packages/lf20_ftxgjunm.json"
+      background="transparent" speed="0.5" style="width: 50px; height: 50px; opacity:0;" loop autoplay></lottie-player>`;
+  } else if (lives === 1) {
+    document.querySelector(".lives").innerHTML = `<p>LIVES</p>
+    <lottie-player id='hearth1' src="https://assets7.lottiefiles.com/packages/lf20_ftxgjunm.json"
+      background="transparent" speed="0.5" style="width: 50px; height: 50px;" loop autoplay></lottie-player>
+    <lottie-player id='hearth2' src="https://assets7.lottiefiles.com/packages/lf20_ftxgjunm.json"
+      background="transparent" speed="0.5" style="width: 50px; height: 50px; opacity:0" loop autoplay></lottie-player>
+      <lottie-player id='hearth2' src="https://assets7.lottiefiles.com/packages/lf20_ftxgjunm.json"
+      background="transparent" speed="0.5" style="width: 50px; height: 50px; opacity:0;" loop autoplay></lottie-player>`;
+  } else if (lives === 0) {
+    document.querySelector(".lives").innerHTML = `<p>LIVES</p>
+    <lottie-player id='hearth1' src="https://assets7.lottiefiles.com/packages/lf20_ftxgjunm.json"
+      background="transparent" speed="0.5" style="width: 50px; height: 50px; opacity:0" loop autoplay></lottie-player>
+    <lottie-player id='hearth2' src="https://assets7.lottiefiles.com/packages/lf20_ftxgjunm.json"
+      background="transparent" speed="0.5" style="width: 50px; height: 50px; opacity:0" loop autoplay></lottie-player>
+      <lottie-player id='hearth2' src="https://assets7.lottiefiles.com/packages/lf20_ftxgjunm.json"
+      background="transparent" speed="0.5" style="width: 50px; height: 50px; opacity:0;" loop autoplay></lottie-player>`;
+    header.innerHTML = `NO MORE LIVES :(`;
+    question.innerHTML = `YOU LOST TO HENRY! MAYBE YOU WANT TO TRY AGAIN?`;
+    next.textContent = `TRY AGAIN!`;
+    next.style.cursor = "pointer";
+    next.style.animationName = "show";
+    next.style.animationDuration = "0.5s";
+    next.style.animationFillMode = "forwards";
+    document.querySelector(`.bottom`).style.animationName = "hide";
+    document.querySelector(`.bottom`).style.animationDuration = "0.5s";
+    document.querySelector(`.bottom`).style.animationFillMode = "forwards";
+    restart = true;
+  }
+}
+
+function henryCheck() {
+  if (henryPoints === 1) {
+    header.innerHTML = `YOU DETHRONED HENRY!`;
+    question.innerHTML = `CONGRATULATION, YOU'RE NOW THE KING OF THE FUN FACT QUIZ! `;
+    next.textContent = `PLAY AGAIN!`;
+    next.style.cursor = "pointer";
+    next.style.animationName = "show";
+    next.style.animationDuration = "0.5s";
+    next.style.animationFillMode = "forwards";
+    document.querySelector(`.bottom`).style.animationName = "hide";
+    document.querySelector(`.bottom`).style.animationDuration = "0.5s";
+    document.querySelector(`.bottom`).style.animationFillMode = "forwards";
+    restart = true;
+    animatorShow("X");
+    henryLife -= 6;
+    document.querySelector(".red").width = `${henryLife}%`;
+    henryPoints -= 1;
+    document.querySelector(".henryLife").innerHTML = `${henryPoints}/15`;
+  }
+}
 
 function randomize() {
   actualQuestion = randomQuestion(questions);
@@ -120,7 +204,7 @@ function randomize() {
   choice2.style.backgroundColor = "white";
   choice3.style.backgroundColor = "white";
   choice4.style.backgroundColor = "white";
-  header.textContent = actualQuestion;
+  header.textContent = `Question ${questionNumber}`;
   question.textContent = questions[actualQuestion].question;
   choice1.textContent = questions[actualQuestion].choice[0];
   choice2.textContent = questions[actualQuestion].choice[1];
@@ -137,13 +221,21 @@ choice1.addEventListener("click", function () {
     next.style.animationDuration = "0.5s";
     next.style.animationFillMode = "forwards";
     next.style.cursor = "pointer";
+    next.textContent = "NEXT QUESTION!";
     animatorShow("X");
+    henryLife -= 6;
+    document.querySelector(".red").width = `${henryLife}%`;
+    henryPoints -= 1;
+    document.querySelector(".henryLife").innerHTML = `${henryPoints}/15`;
+    console.log(`${henryLife}%`);
+    henryCheck();
   } else {
     animatorShow("O");
     choice1.style.backgroundColor = "red";
     header.textContent = "Wrong answer!";
     header.style.color = "red";
     lives -= 1;
+    lifeCheck();
   }
 });
 
@@ -155,57 +247,103 @@ choice2.addEventListener("click", function () {
     next.style.animationName = "show";
     next.style.animationDuration = "0.5s";
     next.style.animationFillMode = "forwards";
+    next.style.cursor = "pointer";
+    next.textContent = "NEXT QUESTION!";
     animatorShow("X");
+    henryLife -= 6;
+    document.querySelector(".red").width = `${henryLife}%`;
+    henryPoints -= 1;
+    document.querySelector(".henryLife").innerHTML = `${henryPoints}/15`;
+    console.log(`${henryLife}%`);
+    henryCheck();
   } else {
     animatorShow("O");
     choice2.style.backgroundColor = "red";
     header.textContent = "Wrong answer!";
     header.style.color = "red";
-
     lives -= 1;
+    lifeCheck();
   }
 });
 
 choice3.addEventListener("click", function () {
   if (choice3.textContent === questions[actualQuestion].answer) {
+    choice3.style.backgroundColor = "green";
     header.textContent = "Right answer!";
     header.style.color = "green";
     next.style.animationName = "show";
     next.style.animationDuration = "0.5s";
     next.style.animationFillMode = "forwards";
+    next.style.cursor = "pointer";
+    next.textContent = "NEXT QUESTION!";
     animatorShow("X");
+    henryLife -= 6;
+    document.querySelector(".red").width = `${henryLife}%`;
+    henryPoints -= 1;
+    document.querySelector(".henryLife").innerHTML = `${henryPoints}/15`;
+    console.log(`${henryLife}%`);
+    henryCheck();
   } else {
     animatorShow("O");
     choice3.style.backgroundColor = "red";
     header.textContent = "Wrong answer!";
     header.style.color = "red";
     lives -= 1;
+    lifeCheck();
   }
 });
 
 choice4.addEventListener("click", function () {
   if (choice4.textContent === questions[actualQuestion].answer) {
+    choice4.style.backgroundColor = "green";
     header.textContent = "Right answer!";
     header.style.color = "green";
     next.style.animationName = "show";
     next.style.animationDuration = "0.5s";
     next.style.animationFillMode = "forwards";
+    next.style.cursor = "pointer";
+    next.textContent = "NEXT QUESTION!";
     animatorShow("X");
+    henryLife -= 6;
+    document.querySelector(".red").width = `${henryLife}%`;
+    henryPoints -= 1;
+    document.querySelector(".henryLife").innerHTML = `${henryPoints}/15`;
+    console.log(`${henryLife}%`);
+    henryCheck();
   } else {
     animatorShow("O");
     choice4.style.backgroundColor = "red";
     header.textContent = "Wrong answer!";
     header.style.color = "red";
     lives -= 1;
+    lifeCheck();
   }
 });
 
 next.addEventListener("click", function () {
-  delete questions[actualQuestion];
-  gameOn = false;
-  animatorShow("Q");
-  randomize();
-  next.style.animationName = "hide";
-  next.style.animationDuration = "0.5s";
-  next.style.animationFillMode = "forwards";
+  if (restart) {
+    document.location.reload();
+  }
+  if (gameOn) {
+    delete questions[actualQuestion];
+    animatorShow("Q");
+    randomize();
+    next.style.animationName = "hide";
+    next.style.animationDuration = "0.5s";
+    next.style.animationFillMode = "forwards";
+    next.style.cursor = "none";
+    questionNumber += 1;
+  } else {
+    gameOn = true;
+    animatorShow("Q");
+    randomize();
+    next.style.animationName = "hide";
+    next.style.animationDuration = "0.5s";
+    next.style.animationFillMode = "forwards";
+    next.style.cursor = "none";
+    questionNumber += 1;
+    document.querySelector(`.bottom`).style.animationName = "show";
+    document.querySelector(`.bottom`).style.animationDuration = "0.5s";
+    document.querySelector(`.bottom`).style.animationFillMode = "forwards";
+  }
 });
